@@ -1,0 +1,2 @@
+Aplikasi ini diuji dan di kembangkan dengan php versi  5.4.31 paket instalasi xampp bintami v3.21
+framework CodeIgniter_2.2.0
