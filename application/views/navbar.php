@@ -1,6 +1,6 @@
 <?php if (!defined( 'BASEPATH')) exit( 'No direct script access allowed'); /* Manggu Framework * Simple PHP Application Development * Kusnassriyanto S. Bahri * kusnassriyanto@gmail.com * */ ?>
 
-<div id="navbar" class="navbar navbar-default">
+<div id="navbar" class="navbar navbar-default" style="background-color:#8F0000">
     <script type="text/javascript">
         try {
             ace.settings.check('navbar', 'fixed')
@@ -23,10 +23,10 @@
         <div class="navbar-header pull-left">
             <!-- #section:basics/navbar.layout.brand -->
             <a href="#" class="navbar-brand">
+			<img src="<?php echo base_url();?>/assets/img/icon2.jpg" style="height:30px" />
                 <small>
-							<i class="fa fa-leaf"></i>
-							Ace Admin
-						</small>
+					Inventory & Acounting System 
+				</small>
             </a>
 
             <!-- /section:basics/navbar.layout.brand -->
