@@ -13,9 +13,26 @@
 		$this->load->model('barang_model');
 		$databarang=$this->barang_model->getbarangall();
 		echo json_encode($databarang);	
-			
+		}
+		
+		function gettotalrecord(){
+		
+		$this->load->model('barang_model');
+		$totalrecord=$this->barang_model->gettotalrecord();
+		echo json_encode($totalrecord);	
 		
 		}
+		
+		function pindahpage(){
+		
+		$this->load->model('barang_model');
+		$databarang=$this->barang_model->pindahpage($_POST['page']);
+		echo json_encode($databarang);
+		//echo $_POST['page'].'nilai ini berasal dari server';
+		//echo 'ajax sukses';
+		}
+		
+		
 		
 		function login(){
 		$this->load->model('login_model');

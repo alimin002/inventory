@@ -14,7 +14,7 @@ if (!defined('BASEPATH'))
 	
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-						<h3>Data Barang</h3>
+						<h3>Data Barang </h3>
 
                         <div class="row">
                             <!-- content is here -->
@@ -46,21 +46,23 @@ if (!defined('BASEPATH'))
                                     
                                 </tbody>
                             </table>
+							<input type="hidden" id="total_record"/>
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
-                                <div id="sample-table-2_info" class="dataTables_info">Showing 1 to 10 of 23 entries</div>
+                                <div id="sample-table-2_info" class="dataTables_info"></div>
                             </div>
                             <div class="col-xs-6">
                                 <div class="dataTables_paginate paging_bootstrap">
-                                    <ul class="pagination">
+                                    <ul class="pagination" id="paginationbarang">
+									<!--
                                         <li class="prev disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
                                         <li class="prev disabled"><a href="#"><i class="fa fa-angle-left"></i></a></li>
                                         <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
+                                       
                                         <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
                                         <li class="next"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+								-->
                                     </ul>
                                 </div>
                             </div>
@@ -132,20 +134,15 @@ if (!defined('BASEPATH'))
                     </div>
 					 <script type="text/javascript">
 					  $("#modal-barang").hide();
+					  function gettotalrecord(){
 					  
-					  function tampildatabarang(){
-						var targeturl="<?php echo base_url().'index.php/barang_controller/getbarangall'?>";
+						var targeturl="<?php echo base_url().'index.php/barang_controller/gettotalrecord'?>";
 						$.ajax({
 						url:targeturl,
 						type: "POST",
 						success: function (data) {
 						var obj = JSON.parse(data);
-						//alert(obj[0]['kode_barang']+ '  ' + obj[0]['kode_produk']+ '  ' + obj[0]['nama_barang']+ '  ' + obj[0]['satuan']);
-						for (var i =0; i< obj.length; i++){
-						//alert();
-						$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['kode_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td></tr>")
-						}
-						//alert('halaman utama succes full');
+						$("#total_record").val(obj[0]['totalrecord']);
 						},
 						error: function (jqXHR, textStatus, errorThrown) {
 						alert('ajax not succesfull'+ errorThrown);
@@ -153,20 +150,103 @@ if (!defined('BASEPATH'))
 						}
 			
 						});
-						}
+					
 					  
-		//$("#modal-barang").hide();
+					  }
+					  
+					    
+						function tampildatabarang(){
+							var targeturl="<?php echo base_url().'index.php/barang_controller/getbarangall'?>";
+							$.ajax({
+							url:targeturl,
+							type: "POST",
+							success: function (data) {
+							var obj = JSON.parse(data);
+							var jumlahrecord=obj.length;
+							
+							
+							for (var i =0; i< obj.length; i++){
+							
+							$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['kode_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td></tr>");
+							}
+							
+							},
+							error: function (jqXHR, textStatus, errorThrown) {
+							alert('ajax not succesfull'+ errorThrown);
+								console.log("ERRORS : " + errorThrown);
+							}
+				
+							});
+						}
+						
+						
+						
+						
+						function buat_paging(total_record){
+							$("#paginationbarang").append('<li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>');
+							var a=1;
+							var b=0;
+							for ( i=0; i< Math.floor(total_record/4); i++){
+							$("#paginationbarang").append('<li class="next" ><a href="#"  id="'+'page'+b+'"  >'+a+'</a></li>');
+							 $('#page'+b).bind('click', function() {
+									pindahpage(this.id);
+								});
+							a++;
+							b++;
+							}
+							$("#paginationbarang").append('<li class="prev"><a href="#"><i class="fa fa-angle-right"></i></a></li>');
+							
+						}
+						
+					
+						function pindahpage(page){
+							//alert(page);
+							var pagenum=page.substring(5, 4);
+							alert(pagenum);
+							var targeturl="<?php echo base_url().'index.php/barang_controller/pindahpage'?>";
+							$.ajax({
+							url:targeturl,
+							type: "POST",
+							data:{
+							 page:pagenum
+							 },
+							
+							success: function (data) {
+							var obj = JSON.parse(data);
+							//alert(obj[0]['kode_barang']);
+							$("#tbody_barang").empty();
+							for (var i =0; i< obj.length; i++){
+							
+							$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['kode_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td></tr>");
+							}
+							var start=(pagenum * 4) + 1;
+							var lastlimit=start + 3;
+							$("#sample-table-2_info").text('Menampilkan '+ start+' Sampai '+lastlimit +' Dari ' + $('#total_record').val() +' Records');
+							},
+							error: function (jqXHR, textStatus, errorThrown) {
+							alert('ajax not succesfull'+ errorThrown);
+								console.log("ERRORS : " + errorThrown);
+							}
+				
+							});
+						}	
+						
+					  
 		$(document).ready(function() {
+		gettotalrecord();
        tampildatabarang();
-		
+	   buat_paging($("#total_record").val());
+	   $("#sample-table-2_info").text("");
+		$("#sample-table-2_info").text('Menampilkan 1 Sampai 4 Dari '+ $('#total_record').val() +' Records');
 		$("#bootbox-regular").click(function(event) {
 			event.preventDefault();
-			//window.location.href='<?php echo base_url().'index.php/barang_controller/tampildatabarang'?>';
-			//alert('barang is here');
 			 $("#modal-barang").show();
 			 
 			
         });
+		
+		
+		
 		
 		
 		$("#btn-cancel-input").click(function(event) {
