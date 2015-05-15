@@ -56,6 +56,7 @@ class base extends CI_Controller {
  
     'title'     =>   'Sistem Inventory',
 	'username'     =>  $username,
+	'pagename'     =>  $pagename,
     'content'   =>   'This is the content',
     'posts'     =>   array('Post 1', 'Post 2', 'Post 3')
  
@@ -65,7 +66,7 @@ class base extends CI_Controller {
 		$this->load->view('header',$data);
 	    $this->load->view('navbar');
 		$this->load->view('sidebar');
-		$this->load->view('breadcrumbs');
+		$this->load->view('breadcrumbs',$pagename);
         $this->load->view('pagecontent');
 		//content web
 		if($pagename=="barang"){
