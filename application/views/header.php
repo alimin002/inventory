@@ -54,6 +54,9 @@ if (!defined('BASEPATH'))
 		<script src="../assets/js/html5shiv.js"></script>
 		<script src="../assets/js/respond.min.js"></script>
 		<![endif]-->
+		
+		<script src="<?php echo base_url(); ?>assets/js/jquery.form.js"></script>
+		<script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
 		 <script src="<?php echo base_url(); ?>assets/js/jquery-2.0.3.min.js"></script>
 	</head>
 

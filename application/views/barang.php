@@ -1,6 +1,4 @@
-
 <?php
-
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -12,9 +10,9 @@ if (!defined('BASEPATH'))
  */
 ?>
 	
-                    <div class="col-xs-12">
+                    <div class="col-xs-12" id="induk-barang">
                         <!-- PAGE CONTENT BEGINS -->
-						<h3>Data Barang </h3>
+						<h3>Data <?php echo $pagename; ?> </h3>
 
                         <div class="row">
                             <!-- content is here -->
@@ -28,7 +26,7 @@ if (!defined('BASEPATH'))
                                             </label>
                                         </th>
                                         <th>Kode Barang</th>
-                                        <th>Kode Produk</th>
+                                        <th>Nama Produk</th>
                                         <th class="hidden-480">Nama Barang</th>
 
                                         <th>
@@ -38,6 +36,7 @@ if (!defined('BASEPATH'))
 
                                         <th>Harga Jual</th>
 										
+										<th>Stock</th>
 										<th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -46,7 +45,7 @@ if (!defined('BASEPATH'))
                                     
                                 </tbody>
                             </table>
-							<input type="hidden" id="total_record"/>
+							<input type="hidden" id="total_record2"/> <input type="hidden" id="data-pencarian" rows=5 style="visible:0"></input>
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
@@ -55,58 +54,53 @@ if (!defined('BASEPATH'))
                             <div class="col-xs-6">
                                 <div class="dataTables_paginate paging_bootstrap">
                                     <ul class="pagination" id="paginationbarang">
-									<!--
-                                        <li class="prev disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                        <li class="prev disabled"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                       
-                                        <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                        <li class="next"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-								-->
                                     </ul>
                                 </div>
                             </div>
                         </div>
 						<div class="row">
-                            <button class="btn btn-white btn-info btn-bold" id="bootbox-regular"> + Tambah Data Barang</button>
-
+                            <button id="bootbox-regular"class="btn btn-white btn-default"><span class="ui-icon ace-icon fa fa-plus center bigger-110 blue"></span> Tambah Data barang</button>
+							
                         </div>
 						
-						
-						<div class="col-xs-6" id="modal-barang">
-					
-                            <div class="modal-content" style="margin-top:-200px;">
-                                <div class="modal-header">
-                                    <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true" id="btn-x-input">×</button>
-                                    <h4 class="modal-title">Input Data Barang</h4>
+						<div aria-hidden="false" style="display: block;" class="bootbox modal fade bootbox-prompt in" tabindex="-1" role="dialog" id="modal-testing">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header" style="background-color:#8F0000; color:white;">
+									<button style="color:white;" type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true" id="btn-x-input">×</button>
+									<h4 class="modal-title" id="judul-modal">Title</h4></div>
+								<div class="modal-body">
+									<div class="bootbox-body">
+										<form class="bootbox-form">
+											Kode Barang
+											<input id="kode_barang" name="kode_barang" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											Nama Barang
+											<input id="nama_barang" name="nama_barang" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											Nama Produk
+											<select id="kode_produk" name="kode_produk" class="bootbox-input bootbox-input-text form-control" autocomplete="off">
+											<option>Pilih Produk</option>
+											</select>
+											Satuan
+											<input id="satuan" name="satuan" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											Harga Beli
+											<input id="harga_beli" name="harga_beli" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											Harga Jual
+											<input id="harga_jual" name="harga_jual" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											Stock
+											<input id="stock" name="stock" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											Aksi
+											<input id="aksi" name="aksi" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+										</form>
+									</div>
 								</div>
-                                <div class="modal-body">
-                                    <div class="bootbox-body">
-                                        <form class="bootbox-form">
-										Kode Barang
-                                        <input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-										Nama Barang
-                                        <input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-										Kode Produk
-                                        <input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-										Satuan
-                                        <input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-										Harga Beli
-                                        <input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-										Harga Jual
-                                        <input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-										Stock
-                                        <input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button data-bb-handler="cancel" type="button" class="btn btn-default" id="btn-cancel-input">Cancel</button>
-                                    <button data-bb-handler="confirm" type="button" id="btn-save" class="btn btn-primary">OK</button>
-                                </div>
-                            </div>
-							
+								<div class="modal-footer" style="background-color:#8F0000; color:white;">
+									<button data-bb-handler="cancel" type="button" class="btn btn-default" id="btn-cancel-input">Cancel</button>
+									<button data-bb-handler="confirm" type="button" class="btn btn-primary" id="btn-ok">OK</button>
+								</div>
+							</div>
 						</div>
+				    </div>
+						
 						
 						
                         <!-- /.row -->
@@ -132,8 +126,12 @@ if (!defined('BASEPATH'))
                         </div>
                         <!-- /.col -->
                     </div>
+					
+					
+					
+					
 					 <script type="text/javascript">
-					  $("#modal-barang").hide();
+					 
 					  function gettotalrecord(){
 					  
 						var targeturl="<?php echo base_url().'index.php/barang_controller/gettotalrecord'?>";
@@ -153,7 +151,160 @@ if (!defined('BASEPATH'))
 					
 					  
 					  }
-					  
+					
+					 
+						
+						function pindahpage(page){
+							var pagenum=page.substring(5, 4);
+							//alert(pagenum);
+							var targeturl="<?php echo base_url().'index.php/barang_controller/pindahpage'?>";
+							$.ajax({
+							url:targeturl,
+							type: "POST",
+							data:{
+							 page:pagenum
+							 },
+							
+							success: function (data) {
+							var obj = JSON.parse(data);
+							$("#tbody_barang").empty();
+							for (var i =0; i< obj.length; i++){
+							$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><a href='#' id='button-edit"+i+"'><i class='ace-icon fa fa-pencil bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-hapus"+i+"'><i class='ace-icon fa fa-trash-o bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-foto"+i+"'><i class=' fa fa-camera'></i></a></tr>");
+								
+								$("#button-hapus"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_hapus(this.id);
+								});
+								
+								$("#button-edit"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_edit(this.id);
+								});
+								
+								$("#button-foto"+i).click(function(event){
+									event.preventDefault();
+									tampil_screen_upload(this.id);
+								});
+							
+							}
+							var start=(pagenum * 4) + 1;
+							var lastlimit=start + 3;
+							$("#sample-table-2_info").text('Menampilkan '+ start+' Sampai '+lastlimit +' Dari ' + $('#total_record2').val() +' Records');
+							},
+							error: function (jqXHR, textStatus, errorThrown) {
+							alert('ajax not succesfull'+ errorThrown);
+						
+
+
+							console.log("ERRORS : " + errorThrown);
+							}
+				
+							});
+						}	
+						
+						function pindahpage_cari(page,data){
+						
+						var obj = JSON.parse(data);
+						//alert(obj[0]['nama_barang']);
+						var pagenum=page.substring(5, 4);
+						pagenum=parseInt(pagenum) +1;
+						//alert(parseInt(pagenum)*3-2);
+						$("#tbody_barang").empty();
+						for (i=(parseInt(pagenum)*3)-2; i<(parseInt(pagenum)*3)+2; i++ ){
+							
+							$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><a href='#' id='button-edit"+i+"'><i class='ace-icon fa fa-pencil bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-hapus"+i+"'><i class='ace-icon fa fa-trash-o bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-foto"+i+"'><i class=' fa fa-camera'></i></a></tr>");
+								
+								$("#button-hapus"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_hapus(this.id);
+								});
+								
+								$("#button-edit"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_edit(this.id);
+								});
+								
+								$("#button-foto"+i).click(function(event){
+									event.preventDefault();
+									tampil_screen_upload(this.id);
+								});
+							
+							
+						}
+						
+							
+						}
+						
+						
+						function buat_paging_cari(total_record){
+						$("#paginationbarang").empty();
+							$("#paginationbarang").append('<li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>');
+							var a=1;
+							var b=0;
+							for ( i=0; i< Math.floor(total_record/4); i++){
+							$("#paginationbarang").append('<li class="next" ><a href="#"  id="'+'page'+b+'"  >'+a+'</a></li>');
+							 $('#page'+b).bind('click', function() {
+									pindahpage_cari(this.id,$('#data-pencarian').val());
+								});
+							a++;
+							b++;
+							}
+							$("#paginationbarang").append('<li class="prev"><a href="#"><i class="fa fa-angle-right"></i></a></li>');
+							
+						}
+						
+						
+						function cari_barang(myparam){
+							//alert(myparam);
+							var targeturl="<?php echo base_url().'index.php/barang_controller/cari_barang'?>";
+							$.ajax({
+							url:targeturl,
+							type: "POST",
+							data:{
+							 param:myparam
+							 },
+							success: function (data){
+							//alert('search sukses');
+							
+								var obj = JSON.parse(data);
+								buat_paging_cari(obj.length)
+								//alert(data);
+								$('#data-pencarian').val(data);
+								//alert(obj[0]['kode_barang']);
+								$("#tbody_barang").empty();
+								for (var i =0; i< 4; i++){
+								
+								$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><a href='#' id='button-edit"+i+"'><i class='ace-icon fa fa-pencil bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-hapus"+i+"'><i class='ace-icon fa fa-trash-o bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-foto"+i+"'><i class=' fa fa-camera'></i></a></tr>");
+								
+								$("#button-hapus"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_hapus(this.id);
+								});
+								
+								$("#button-edit"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_edit(this.id);
+								});
+								
+								$("#button-foto"+i).click(function(event){
+									event.preventDefault();
+									tampil_screen_upload(this.id);
+								});
+								
+								}
+								var start=(pagenum * 4) + 1;
+								var lastlimit=start + 3;
+								$("#sample-table-2_info").text('Menampilkan '+ start+' Sampai '+lastlimit +' Dari ' + $('#total_record').val() +' Records');
+							},
+							error: function (jqXHR, textStatus, errorThrown) {
+							alert('ajax not succesfull'+ errorThrown);
+							$("#data-pencarian").val('test');
+								console.log("ERRORS : " + errorThrown);
+							}
+				
+							});
+						
+						}
 					    
 						function tampildatabarang(){
 							var targeturl="<?php echo base_url().'index.php/barang_controller/getbarangall'?>";
@@ -163,11 +314,24 @@ if (!defined('BASEPATH'))
 							success: function (data) {
 							var obj = JSON.parse(data);
 							var jumlahrecord=obj.length;
-							
-							
 							for (var i =0; i< obj.length; i++){
-							
-							$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['kode_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td></tr>");
+								$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><a href='#' id='button-edit"+i+"'><i class='ace-icon fa fa-pencil bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-hapus"+i+"'><i class='ace-icon fa fa-trash-o bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-foto"+i+"'><i class=' fa fa-camera'></i></a></tr>");
+								
+								$("#button-hapus"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_hapus(this.id);
+								});
+								
+								$("#button-edit"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_edit(this.id);
+								});
+								
+								$("#button-foto"+i).click(function(event){
+									event.preventDefault();
+									tampil_screen_upload(this.id);
+								});
+								
 							}
 							
 							},
@@ -180,9 +344,116 @@ if (!defined('BASEPATH'))
 						}
 						
 						
+						function tampil_screen_upload(id){
+						
+						 id=id.substring(11);
+						 //alert(id);
+							var username= $("#username").text();
+							var kode_barang=document.getElementById('tbody_barang').children[id].children[1].textContent;
+							//alert(kode_barang);
+							window.location.href='<?php echo base_url().'index.php/barang_controller/upload_barang/barang_upload/'?>'+username+'/'+id+'/'+kode_barang;
+						}
+						
+						
+						
+						function tampil_modal_edit(id){
+						 id=id.substring(11);
+						 $("#kode_produk").empty();
+						 $("#modal-testing").fadeIn(1000);
+						 $("#judul-modal").text('Edit Data Barang');
+						 $("#kode_barang").val(document.getElementById('tbody_barang').children[id].children[1].textContent);
+						 $("#kode_barang").attr({ "disabled":false});
+						 $("#nama_barang").val(document.getElementById('tbody_barang').children[id].children[3].textContent);
+						 $("#nama_barang").attr({ "disabled":false});
+						 $("#kode_produk").append('<option>'+document.getElementById('tbody_barang').children[id].children[2].textContent+'</option>');
+						 get_product_edit();
+						 $("#kode_produk").attr({ "disabled":false});
+						 $("#satuan").val(document.getElementById('tbody_barang').children[id].children[4].textContent);
+						 $("#satuan").attr({ "disabled":false});
+						 $("#harga_beli").val(document.getElementById('tbody_barang').children[id].children[5].textContent);
+						 $("#harga_beli").attr({ "disabled":false});
+						 $("#harga_jual").val(document.getElementById('tbody_barang').children[id].children[6].textContent);
+						 $("#harga_jual").attr({ "disabled":false});
+						 $("#stock").val(document.getElementById('tbody_barang').children[id].children[7].textContent);
+						 $("#stock").attr({ "disabled":false});
+						 $("#aksi").val('edit');
+						}
+						
+						
+						function tampil_modal_hapus(id){
+						 id=id.substring(12);
+						 $("#kode_produk").empty();
+						 $("#modal-testing").fadeIn(1000);
+						 $("#judul-modal").text('Data berikut akan dihapus, apakah anda yakin mau melanjutkan?');
+						 $("#kode_barang").val(document.getElementById('tbody_barang').children[id].children[1].textContent);
+						 $("#kode_barang").attr({ "disabled":"disabled"});
+						 $("#nama_barang").val(document.getElementById('tbody_barang').children[id].children[3].textContent);
+						  $("#nama_barang").attr({ "disabled":"disabled"});
+						 $("#kode_produk").append('<option>'+document.getElementById('tbody_barang').children[id].children[2].textContent+'</option>');
+						  $("#kode_produk").attr({ "disabled":"disabled"});
+						$("#satuan").val(document.getElementById('tbody_barang').children[id].children[4].textContent);
+						 $("#satuan").attr({ "disabled":"disabled"});
+						 $("#harga_beli").val(document.getElementById('tbody_barang').children[id].children[5].textContent);
+						  $("#harga_beli").attr({ "disabled":"disabled"});
+						 $("#harga_jual").val(document.getElementById('tbody_barang').children[id].children[6].textContent);
+						  $("#harga_jual").attr({ "disabled":"disabled"});
+						 $("#stock").val(document.getElementById('tbody_barang').children[id].children[7].textContent);
+						  $("#stock").attr({ "disabled":"disabled"});
+						 $("#aksi").val('hapus');
+						//alert(id);
+						}
+						
+						
+						function get_product(){
+						var targeturl="<?php echo base_url().'index.php/barang_controller/get_product'?>";
+							$.ajax({
+							url:targeturl,
+							type: "POST",
+							success: function (data) {
+							var obj = JSON.parse(data);
+							
+							//alert(obj[0]['nama_produk']);
+							$("#kode_produk").empty();
+							$("#kode_produk").append("<option>Pilih Produk </option>");
+							for (var i =0; i< obj.length; i++){
+								$("#kode_produk").append("<option value='"+obj[i]['kode_produk']+"'>"+obj[i]['nama_produk']+" </option>");
+							}
+							
+							},
+							error: function (jqXHR, textStatus, errorThrown) {
+							alert('ajax not succesfull'+ errorThrown);
+								console.log("ERRORS : " + errorThrown);
+							}
+				
+							});
+						
+						}
+						
+						function get_product_edit(){
+						var targeturl="<?php echo base_url().'index.php/barang_controller/get_product'?>";
+							$.ajax({
+							url:targeturl,
+							type: "POST",
+							success: function (data) {
+							var obj = JSON.parse(data);
+							
+							for (var i =0; i< obj.length; i++){
+								$("#kode_produk").append("<option value='"+obj[i]['kode_produk']+"'>"+obj[i]['nama_produk']+" </option>");
+							}
+							
+							},
+							error: function (jqXHR, textStatus, errorThrown) {
+							alert('ajax not succesfull'+ errorThrown);
+								console.log("ERRORS : " + errorThrown);
+							}
+				
+							});
+						
+						}
 						
 						
 						function buat_paging(total_record){
+						$("#paginationbarang").empty();
 							$("#paginationbarang").append('<li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>');
 							var a=1;
 							var b=0;
@@ -198,71 +469,73 @@ if (!defined('BASEPATH'))
 							
 						}
 						
-					
-						function pindahpage(page){
-							//alert(page);
-							var pagenum=page.substring(5, 4);
-							alert(pagenum);
-							var targeturl="<?php echo base_url().'index.php/barang_controller/pindahpage'?>";
-							$.ajax({
-							url:targeturl,
-							type: "POST",
-							data:{
-							 page:pagenum
-							 },
-							
-							success: function (data) {
-							var obj = JSON.parse(data);
-							//alert(obj[0]['kode_barang']);
-							$("#tbody_barang").empty();
-							for (var i =0; i< obj.length; i++){
-							
-							$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['kode_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td></tr>");
-							}
-							var start=(pagenum * 4) + 1;
-							var lastlimit=start + 3;
-							$("#sample-table-2_info").text('Menampilkan '+ start+' Sampai '+lastlimit +' Dari ' + $('#total_record').val() +' Records');
-							},
-							error: function (jqXHR, textStatus, errorThrown) {
-							alert('ajax not succesfull'+ errorThrown);
-								console.log("ERRORS : " + errorThrown);
-							}
-				
-							});
-						}	
-						
+						function getjumlahrecord(){
+						var t= <?php echo json_encode($totalrecord);?>;
+						getjumlahrecord=  t[0].totalrecord;
+						$("#total_record2").val(t[0].totalrecord)
+						//alert(t[0].totalrecord);
+						}
 					  
-		$(document).ready(function() {
-		gettotalrecord();
+		$("#modal-testing").hide();			  
+					  
+		$(document).ready(function() { 
+		
+		getjumlahrecord();
        tampildatabarang();
-	   buat_paging($("#total_record").val());
+	   
+	  
+	   
+	   buat_paging($("#total_record2").val());
 	   $("#sample-table-2_info").text("");
-		$("#sample-table-2_info").text('Menampilkan 1 Sampai 4 Dari '+ $('#total_record').val() +' Records');
-		$("#bootbox-regular").click(function(event) {
-			event.preventDefault();
-			 $("#modal-barang").show();
-			 
-			
-        });
-		
-		
-		
-		
+		$("#sample-table-2_info").text('Menampilkan 1 Sampai 4 Dari '+ $('#total_record2').val() +' Records');
 		
 		$("#btn-cancel-input").click(function(event) {
 			event.preventDefault();
-			 $("#modal-barang").hide();
+			 $("#modal-testing").fadeOut("slow");
         });
 		
 			
 		$("#btn-x-input").click(function(event) {
 			event.preventDefault();
-			 $("#modal-barang").hide();
+			 $("#modal-testing").fadeOut("slow");
         });
 		
+		//bootbox-regular
+		
+		$("#bootbox-regular").click(function(event) {
+			event.preventDefault();
+			 $("#modal-testing").fadeIn(1000);
+			  get_product();
+			 $("#judul-modal").text('Tambah Data Barang');
+			 $("#kode_barang").val("");
+			 $("#kode_barang").attr({ "disabled":false});
+			 $("#nama_barang").val("");
+			 $("#nama_barang").attr({ "disabled":false});
+			 $("#satuan").val("");
+			 $("#satuan").attr({ "disabled":false});
+			 $("#harga_beli").val("");
+			 $("#harga_beli").attr({ "disabled":false});
+			 $("#harga_jual").val("");
+			 $("#harga_jual").attr({ "disabled":false});
+			 $("#stock").val("");
+			 $("#stock").attr({ "disabled":false});
+			 $("#aksi").val('tambah');
+	    });
+		
+		
+		
+		$("#text-search-barang").change(function(event) {
+			event.preventDefault();
+			//cari_barang($("#text-search-barang").val());
+			//cari();
+	    });
+		
+		$("#btn-cari").click(function(event) {
+			event.preventDefault();
+			cari_barang($("#text-search-barang").val());
+	    });
 		
         });
-		
 		
 		</script>
 	
