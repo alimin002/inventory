@@ -74,11 +74,11 @@ if (!defined('BASEPATH'))
 										<form class="bootbox-form">
 											<span id="span-kode-barang">
 												Kode Barang
-												<input placeholder="ex:b1" id="kode_barang"  name="kode_barang" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+												<input placeholder="contoh:b1" id="kode_barang"  name="kode_barang" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
 											</span>
 											<span id="span-nama">
 												Nama Barang
-												<input placeholder="ex:alisan" id="nama_barang" name="nama_barang" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+												<input placeholder="contoh:alisan" id="nama_barang" name="nama_barang" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
 											</span>
 											<span id="span-kode">
 												Nama Produk
@@ -86,19 +86,19 @@ if (!defined('BASEPATH'))
 											</span>
 											<span id="span-satuan">
 												Satuan
-												<input placeholder="ex:potong" id="satuan" name="satuan" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+												<input placeholder="contoh:potong" id="satuan" name="satuan" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
 											</span>
 											<span id="span-harga-beli">
 												Harga Beli
-												<input placeholder="ex:100000" id="harga_beli" name="harga_beli" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+												<input placeholder="contoh:100000" id="harga_beli" name="harga_beli" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
 											</span>
 											<span id="span-harga-jual">
 												Harga Jual
-												<input placeholder="ex:150000" id="harga_jual" name="harga_jual" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+												<input placeholder="contoh:150000" id="harga_jual" name="harga_jual" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
 											</span>
 											<span id="span-stock">
 												Stock
-												<input placeholder="ex:30" id="stock" name="stock" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+												<input placeholder="contoh:30" id="stock" name="stock" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
 											</span>
 											<!--Aksi-->
 											<input id="aksi" name="aksi" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="hidden">
@@ -670,8 +670,9 @@ if (!defined('BASEPATH'))
 				}
 				// Ensure that it is a number and stop the keypress
 				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-				alert('Hanya Boleh Diisi Angka..');
 				e.preventDefault();
+				alert('Hanya Boleh Diisi Angka..');
+				 $("#harga_beli").val("");
 				}
 				});
 				
@@ -687,8 +688,9 @@ if (!defined('BASEPATH'))
 				}
 				// Ensure that it is a number and stop the keypress
 				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-				alert('Hanya Boleh Diisi Angka..');
 				e.preventDefault();
+				alert('Hanya Boleh Diisi Angka..');
+				$("#harga_jual").val("");
 				}
 				});
 				
@@ -717,7 +719,7 @@ if (!defined('BASEPATH'))
 			$('#stock').keypress(function(e) { 
 
 			var verified = (e.which == 8 || e.which == undefined || e.which == 0) ? null : String.fromCharCode(e.which).match(/[^0-9]/);debugger;
-			if (verified || e.delegateTarget.value.length>2 || e.ctrlKey ==true) { alert('maksimal 3 digit dan harus angka'); if(e.which!=8 ){e.preventDefault();}}
+			if (verified || e.delegateTarget.value.length>2 || e.ctrlKey ==true) { alert('maksimal 3 digit dan harus angka'); $("#harga_jual").val(""); if(e.which!=8 ){e.preventDefault();}}
 
 			}).on('paste',function(e){ e.preventDefault();});
 
