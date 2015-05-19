@@ -45,7 +45,7 @@ if (!defined('BASEPATH'))
                                     
                                 </tbody>
                             </table>
-							<input type="hidden" id="total_record2"/> <input type="hidden" id="data-pencarian" rows=5 style="visible:0"></input>
+							<input type="text" id="total_record2"/> <input type="hidden" id="data-pencarian" rows=5 style="visible:0"></input> <input type="text" id="total_record_cari"/>
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
@@ -72,24 +72,36 @@ if (!defined('BASEPATH'))
 								<div class="modal-body">
 									<div class="bootbox-body">
 										<form class="bootbox-form">
-											Kode Barang
-											<input id="kode_barang" name="kode_barang" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-											Nama Barang
-											<input id="nama_barang" name="nama_barang" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-											Nama Produk
-											<select id="kode_produk" name="kode_produk" class="bootbox-input bootbox-input-text form-control" autocomplete="off">
-											<option>Pilih Produk</option>
-											</select>
-											Satuan
-											<input id="satuan" name="satuan" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-											Harga Beli
-											<input id="harga_beli" name="harga_beli" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-											Harga Jual
-											<input id="harga_jual" name="harga_jual" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-											Stock
-											<input id="stock" name="stock" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
-											Aksi
-											<input id="aksi" name="aksi" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											<span id="span-kode-barang">
+												Kode Barang
+												<input placeholder="ex:b1" id="kode_barang"  name="kode_barang" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											</span>
+											<span id="span-nama">
+												Nama Barang
+												<input placeholder="ex:alisan" id="nama_barang" name="nama_barang" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											</span>
+											<span id="span-kode">
+												Nama Produk
+												<select id="kode_produk" name="kode_produk" class="bootbox-input bootbox-input-text form-control" autocomplete="off"><option>Pilih Produk</option></select>
+											</span>
+											<span id="span-satuan">
+												Satuan
+												<input placeholder="ex:potong" id="satuan" name="satuan" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											</span>
+											<span id="span-harga-beli">
+												Harga Beli
+												<input placeholder="ex:100000" id="harga_beli" name="harga_beli" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											</span>
+											<span id="span-harga-jual">
+												Harga Jual
+												<input placeholder="ex:150000" id="harga_jual" name="harga_jual" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											</span>
+											<span id="span-stock">
+												Stock
+												<input placeholder="ex:30" id="stock" name="stock" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+											</span>
+											<!--Aksi-->
+											<input id="aksi" name="aksi" class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="hidden">
 										</form>
 									</div>
 								</div>
@@ -169,7 +181,7 @@ if (!defined('BASEPATH'))
 							var obj = JSON.parse(data);
 							$("#tbody_barang").empty();
 							for (var i =0; i< obj.length; i++){
-							$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><a href='#' id='button-edit"+i+"'><i class='ace-icon fa fa-pencil bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-hapus"+i+"'><i class='ace-icon fa fa-trash-o bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-foto"+i+"'><i class=' fa fa-camera'></i></a></tr>");
+							$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><button id='button-edit"+i+"' style='margin-right:5px' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-pencil bigger-120'></i></a></button><button id='button-hapus"+i+"' style='margin-right:5px' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-trash-o bigger-120'></i></a></button><button id='button-foto"+i+"' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class=' fa fa-camera'></i></a></button></tr>");
 								
 								$("#button-hapus"+i).click(function(event){
 									event.preventDefault();
@@ -211,8 +223,8 @@ if (!defined('BASEPATH'))
 						//alert(parseInt(pagenum)*3-2);
 						$("#tbody_barang").empty();
 						for (i=(parseInt(pagenum)*3)-2; i<(parseInt(pagenum)*3)+2; i++ ){
-							
-							$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><a href='#' id='button-edit"+i+"'><i class='ace-icon fa fa-pencil bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-hapus"+i+"'><i class='ace-icon fa fa-trash-o bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-foto"+i+"'><i class=' fa fa-camera'></i></a></tr>");
+							//<button type='button' class='btn btn-white btn-pink btn-sm'>Pink</button>
+							$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><button id='button-edit"+i+"' style='margin-right:5px' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-pencil bigger-120'></i></a></button><button id='button-hapus"+i+"' style='margin-right:5px' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-trash-o bigger-120'></i></a></button><button id='button-foto"+i+"' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class=' fa fa-camera'></i></a></button></tr>");
 								
 								$("#button-hapus"+i).click(function(event){
 									event.preventDefault();
@@ -269,32 +281,34 @@ if (!defined('BASEPATH'))
 								var obj = JSON.parse(data);
 								buat_paging_cari(obj.length)
 								//alert(data);
+								//alert(obj.length);
+								$("#total_record_cari").val(obj.length);
+								$("#sample-table-2_info").text('Menampilkan '+ start+' Sampai '+lastlimit +' Dari ' + $("#total_record_cari").val() +' Records');
 								$('#data-pencarian').val(data);
 								//alert(obj[0]['kode_barang']);
 								$("#tbody_barang").empty();
 								for (var i =0; i< 4; i++){
-								
-								$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><a href='#' id='button-edit"+i+"'><i class='ace-icon fa fa-pencil bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-hapus"+i+"'><i class='ace-icon fa fa-trash-o bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-foto"+i+"'><i class=' fa fa-camera'></i></a></tr>");
-								
-								$("#button-hapus"+i).click(function(event){
-									event.preventDefault();
-									tampil_modal_hapus(this.id);
-								});
-								
-								$("#button-edit"+i).click(function(event){
-									event.preventDefault();
-									tampil_modal_edit(this.id);
-								});
-								
-								$("#button-foto"+i).click(function(event){
-									event.preventDefault();
-									tampil_screen_upload(this.id);
-								});
+										$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><button id='button-edit"+i+"' style='margin-right:3px;' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-pencil bigger-120'></i></a></button><button id='button-hapus"+i+"' style='margin-right:3px' type='button' class='btn btn-white btn-pink btn-sm'><a href='#'><i class='ace-icon fa fa-trash-o bigger-120'></i></a></button><button id='button-foto"+i+"' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class=' fa fa-camera'></i></a></button></tr>");
+										
+										$("#button-hapus"+i).click(function(event){
+											event.preventDefault();
+											tampil_modal_hapus(this.id);
+										});
+										
+										$("#button-edit"+i).click(function(event){
+											event.preventDefault();
+											tampil_modal_edit(this.id);
+										});
+										
+										$("#button-foto"+i).click(function(event){
+											event.preventDefault();
+											tampil_screen_upload(this.id);
+										});
 								
 								}
 								var start=(pagenum * 4) + 1;
 								var lastlimit=start + 3;
-								$("#sample-table-2_info").text('Menampilkan '+ start+' Sampai '+lastlimit +' Dari ' + $('#total_record').val() +' Records');
+								
 							},
 							error: function (jqXHR, textStatus, errorThrown) {
 							alert('ajax not succesfull'+ errorThrown);
@@ -314,25 +328,25 @@ if (!defined('BASEPATH'))
 							success: function (data) {
 							var obj = JSON.parse(data);
 							var jumlahrecord=obj.length;
-							for (var i =0; i< obj.length; i++){
-								$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><a href='#' id='button-edit"+i+"'><i class='ace-icon fa fa-pencil bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-hapus"+i+"'><i class='ace-icon fa fa-trash-o bigger-120' style='margin-right:5px;'></i></a><a href='#' id='button-foto"+i+"'><i class=' fa fa-camera'></i></a></tr>");
-								
-								$("#button-hapus"+i).click(function(event){
-									event.preventDefault();
-									tampil_modal_hapus(this.id);
-								});
-								
-								$("#button-edit"+i).click(function(event){
-									event.preventDefault();
-									tampil_modal_edit(this.id);
-								});
-								
-								$("#button-foto"+i).click(function(event){
-									event.preventDefault();
-									tampil_screen_upload(this.id);
-								});
-								
-							}
+							for (var i = 0; i < obj.length; i++) {
+    $("#tbody_barang").append("<tr><td></td><td>" + obj[i]['kode_barang'] + "</td>" + "<td>" + obj[i]['nama_produk'] + "</td><td>" + obj[i]['nama_barang'] + "</td><td>" + obj[i]['satuan'] + "</td><td>" + obj[i]['harga_beli'] + "</td><td>" + obj[i]['harga_jual'] + "</td><td>" + obj[i]['stock'] + "</td><td><button style='margin-right:3px;' id='button-edit" + i + "' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-pencil bigger-120'></i></a></button><button id='button-hapus" + i + "' style='margin-right:3px;' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-trash-o bigger-120'></i></a></button><button id='button-foto" + i + "'type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class=' fa fa-camera'></i></a></button></tr>");
+
+    $("#button-hapus" + i).click(function(event) {
+        event.preventDefault();
+        tampil_modal_hapus(this.id);
+    });
+
+    $("#button-edit" + i).click(function(event) {
+        event.preventDefault();
+        tampil_modal_edit(this.id);
+    });
+
+    $("#button-foto" + i).click(function(event) {
+        event.preventDefault();
+        tampil_screen_upload(this.id);
+    });
+
+}
 							
 							},
 							error: function (jqXHR, textStatus, errorThrown) {
@@ -359,10 +373,12 @@ if (!defined('BASEPATH'))
 						function tampil_modal_edit(id){
 						 id=id.substring(11);
 						 $("#kode_produk").empty();
+						  
 						 $("#modal-testing").fadeIn(1000);
 						 $("#judul-modal").text('Edit Data Barang');
 						 $("#kode_barang").val(document.getElementById('tbody_barang').children[id].children[1].textContent);
 						 $("#kode_barang").attr({ "disabled":false});
+						 $("#kode_barang").attr({"readonly":"true"});
 						 $("#nama_barang").val(document.getElementById('tbody_barang').children[id].children[3].textContent);
 						 $("#nama_barang").attr({ "disabled":false});
 						 $("#kode_produk").append('<option>'+document.getElementById('tbody_barang').children[id].children[2].textContent+'</option>');
@@ -383,6 +399,7 @@ if (!defined('BASEPATH'))
 						function tampil_modal_hapus(id){
 						 id=id.substring(12);
 						 $("#kode_produk").empty();
+						  $("#nama_barang").attr({"disabled":"true"});
 						 $("#modal-testing").fadeIn(1000);
 						 $("#judul-modal").text('Data berikut akan dihapus, apakah anda yakin mau melanjutkan?');
 						 $("#kode_barang").val(document.getElementById('tbody_barang').children[id].children[1].textContent);
@@ -404,12 +421,14 @@ if (!defined('BASEPATH'))
 						}
 						
 						
+						
 						function get_product(){
 						var targeturl="<?php echo base_url().'index.php/barang_controller/get_product'?>";
 							$.ajax({
 							url:targeturl,
 							type: "POST",
 							success: function (data) {
+							//alert(data);
 							var obj = JSON.parse(data);
 							
 							//alert(obj[0]['nama_produk']);
@@ -475,6 +494,242 @@ if (!defined('BASEPATH'))
 						$("#total_record2").val(t[0].totalrecord)
 						//alert(t[0].totalrecord);
 						}
+						
+						
+						
+		function hapus_data(kode_barang){
+			var targeturl="<?php echo base_url().'index.php/barang_controller/hapus_data'?>";
+			$.ajax({
+			url:targeturl,
+			type: "POST",
+			data:{
+			kode_barang:kode_barang
+			},
+			success: function (data) {
+			alert('Data Sukses Dihapus..');
+			var obj = JSON.parse(data);
+			$("#tbody_barang").empty();
+								for (var i =0; i< obj.length; i++){
+								$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><button id='button-edit"+i+"' style='margin-right:3px;' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-pencil bigger-120'></i></a></button><button id='button-hapus"+i+"' style='margin-right:3px' type='button' class='btn btn-white btn-pink btn-sm'><a href='#'><i class='ace-icon fa fa-trash-o bigger-120'></i></a></button><button id='button-foto"+i+"' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class=' fa fa-camera'></i></a></button></tr>");
+								
+								$("#button-hapus"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_hapus(this.id);
+								});
+								
+								$("#button-edit"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_edit(this.id);
+								});
+								
+								$("#button-foto"+i).click(function(event){
+									event.preventDefault();
+									tampil_screen_upload(this.id);
+								});
+								
+							}
+							$("#modal-testing").fadeOut("slow");
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+			alert('ajax not succesfull'+ errorThrown);
+			console.log("ERRORS : " + errorThrown);
+			}
+			});
+			
+		}
+		
+		function simpan_data(mykode_barang,mynama_barang,mykode_produk,mysatuan,myharga_beli,myharga_jual,mystock){
+						
+							var targeturl="<?php echo base_url().'index.php/barang_controller/simpan_data'?>";
+							$.ajax({
+							url:targeturl,
+							type: "POST",
+							data:{
+							 kode_barang:mykode_barang,
+							 nama_barang:mynama_barang,
+							 kode_produk:mykode_produk,
+								  satuan:mysatuan,
+							  harga_beli:myharga_beli,
+							  harga_jual:myharga_jual,
+								   stock:mystock
+							},
+							success: function (data){
+							alert('Data Sukses Di Tambahkan..');
+							
+							$('#tbody_barang').empty();
+							
+							var obj = JSON.parse(data);
+							var jumlahrecord=obj.length;
+							for (var i =0; i< obj.length; i++){
+							
+								$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><button id='button-edit"+i+"' style='margin-right:3px;' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-pencil bigger-120'></i></a></button><button id='button-hapus"+i+"' style='margin-right:3px' type='button' class='btn btn-white btn-pink btn-sm'><a href='#'><i class='ace-icon fa fa-trash-o bigger-120'></i></a></button><button id='button-foto"+i+"' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class=' fa fa-camera'></i></a></button></tr>");
+								
+								$("#button-hapus"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_hapus(this.id);
+								});
+								
+								$("#button-edit"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_edit(this.id);
+								});
+								
+								$("#button-foto"+i).click(function(event){
+									event.preventDefault();
+									tampil_screen_upload(this.id);
+								});
+								$("#modal-testing").fadeOut("slow");
+							}
+							
+							
+							},
+							error: function (jqXHR, textStatus, errorThrown) {
+							alert('ajax not succesfull'+ errorThrown);
+							$("#data-pencarian").val('test');
+								console.log("ERRORS : " + errorThrown);
+							}
+				
+							});
+							
+						
+						}
+		
+		function edit_data(mykode_barang,mynama_barang,mykode_produk,mysatuan,myharga_beli,myharga_jual,mystock){
+			var targeturl="<?php echo base_url().'index.php/barang_controller/edit_data'?>";
+			$.ajax({
+			url :targeturl,
+						data:{
+							kode_barang:mykode_barang,
+							nama_barang:mynama_barang,
+							 kode_produk:mykode_produk,
+								  satuan:mysatuan,
+							  harga_beli:myharga_beli,
+							  harga_jual:myharga_jual,
+								   stock:mystock
+						},
+			type: "POST",
+			success: function (data){
+			var obj = JSON.parse(data);
+			//alert(obj[0]['nama_produk']);
+			alert('Data Sukses Diedit');
+			$("#tbody_barang").empty();
+				for (var i =0; i< obj.length; i++){
+								$("#tbody_barang").append("<tr><td></td><td>"+obj[i]['kode_barang']+"</td>"+"<td>"+obj[i]['nama_produk']+"</td><td>"+obj[i]['nama_barang']+"</td><td>"+obj[i]['satuan']+"</td><td>"+obj[i]['harga_beli']+"</td><td>"+obj[i]['harga_jual']+"</td><td>"+obj[i]['stock']+"</td><td><button id='button-edit"+i+"' style='margin-right:3px;' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-pencil bigger-120'></i></a></button><button id='button-hapus"+i+"' style='margin-right:3px' type='button' class='btn btn-white btn-pink btn-sm'><a href='#'><i class='ace-icon fa fa-trash-o bigger-120'></i></a></button><button id='button-foto"+i+"' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class=' fa fa-camera'></i></a></button></tr>");
+								
+								$("#button-hapus"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_hapus(this.id);
+								});
+								
+								$("#button-edit"+i).click(function(event){
+									event.preventDefault();
+									tampil_modal_edit(this.id);
+								});
+								
+								$("#button-foto"+i).click(function(event){
+									event.preventDefault();
+									tampil_screen_upload(this.id);
+								});
+								$("#modal-testing").fadeOut("slow");
+							}
+				
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+			alert('ajax not succesfull'+ errorThrown);
+			console.log("ERRORS : " + errorThrown);
+			}
+				
+		});
+		}
+						
+		//validasi inputan 
+			function cek_inputan_kosong(){
+			
+				if($("#kode_barang").val() == "" | $("#nama_barang").val() == "" | $("#kode_produk").val() == "" | $("#satuan").val() == "" | $("#harga_beli").val() == "" | $("#harga_jual").val() == "" | $("#stock").val() == ""){
+					
+					cek_inputan_kosong=true;
+				}else{
+				cek_inputan_kosong=false;
+				
+				}
+				
+			}
+			
+			
+			function hanya_angka(){
+			
+			 $("#harga_beli").keydown(function (e) {
+				// Allow: backspace, delete, tab, escape, enter and .
+				if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+				// Allow: Ctrl+A, Command+A
+				(e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+				// Allow: home, end, left, right, down, up
+				(e.keyCode >= 35 && e.keyCode <= 40)) {
+                 // let it happen, don't do anything
+                 return;
+				}
+				// Ensure that it is a number and stop the keypress
+				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				alert('Hanya Boleh Diisi Angka..');
+				e.preventDefault();
+				}
+				});
+				
+				$("#harga_jual").keydown(function (e) {
+				// Allow: backspace, delete, tab, escape, enter and .
+				if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+				// Allow: Ctrl+A, Command+A
+				(e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+				// Allow: home, end, left, right, down, up
+				(e.keyCode >= 35 && e.keyCode <= 40)) {
+                 // let it happen, don't do anything
+                 return;
+				}
+				// Ensure that it is a number and stop the keypress
+				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				alert('Hanya Boleh Diisi Angka..');
+				e.preventDefault();
+				}
+				});
+				
+				
+				$("#stock").keydown(function (e) {
+				// Allow: backspace, delete, tab, escape, enter and .
+				if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+				// Allow: Ctrl+A, Command+A
+				(e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+				// Allow: home, end, left, right, down, up
+				(e.keyCode >= 35 && e.keyCode <= 40)) {
+                 // let it happen, don't do anything
+                 return;
+				}
+				// Ensure that it is a number and stop the keypress
+				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				e.preventDefault();
+				
+				}
+				});
+				
+				batasi_digit()
+			}
+			
+			function batasi_digit(){
+			$('#stock').keypress(function(e) { 
+
+			var verified = (e.which == 8 || e.which == undefined || e.which == 0) ? null : String.fromCharCode(e.which).match(/[^0-9]/);debugger;
+			if (verified || e.delegateTarget.value.length>2 || e.ctrlKey ==true) { alert('maksimal 3 digit dan harus angka'); if(e.which!=8 ){e.preventDefault();}}
+
+			}).on('paste',function(e){ e.preventDefault();});
+
+			
+			}
+			
+			
+			
+			
+			
+			
+		//validasi inputan
 					  
 		$("#modal-testing").hide();			  
 					  
@@ -486,6 +741,7 @@ if (!defined('BASEPATH'))
 	  
 	   
 	   buat_paging($("#total_record2").val());
+	   
 	   $("#sample-table-2_info").text("");
 		$("#sample-table-2_info").text('Menampilkan 1 Sampai 4 Dari '+ $('#total_record2').val() +' Records');
 		
@@ -510,6 +766,8 @@ if (!defined('BASEPATH'))
 			 $("#kode_barang").val("");
 			 $("#kode_barang").attr({ "disabled":false});
 			 $("#nama_barang").val("");
+			 $("#kode_produk").attr({ "disabled":false});
+			 $("#nama_produk").val("");
 			 $("#nama_barang").attr({ "disabled":false});
 			 $("#satuan").val("");
 			 $("#satuan").attr({ "disabled":false});
@@ -520,8 +778,10 @@ if (!defined('BASEPATH'))
 			 $("#stock").val("");
 			 $("#stock").attr({ "disabled":false});
 			 $("#aksi").val('tambah');
+			 $("#btn-ok").attr({ "disabled":false});
+			 
+			 hanya_angka();
 	    });
-		
 		
 		
 		$("#text-search-barang").change(function(event) {
@@ -529,10 +789,36 @@ if (!defined('BASEPATH'))
 			//cari_barang($("#text-search-barang").val());
 			//cari();
 	    });
-		
+		$("#btn-cari").css('cursor','pointer');
 		$("#btn-cari").click(function(event) {
 			event.preventDefault();
 			cari_barang($("#text-search-barang").val());
+	    });
+		
+		$("#btn-ok").click(function(event) {
+		
+			event.preventDefault();
+			
+			if($("#kode_barang").val() == "" | $("#nama_barang").val() == "" | $("#kode_produk").val() == "" | $("#satuan").val() == "" | $("#harga_beli").val() == "" | $("#harga_jual").val() == "" | $("#stock").val() == ""){
+				alert('Semuanfield harus diisi');
+				
+			}else{
+				
+				if($("#aksi").val()=="tambah"){
+				
+					simpan_data($("#kode_barang").val(),$("#nama_barang").val(),$("#kode_produk").val(),$("#satuan").val(),$("#harga_beli").val(),$("#harga_jual").val(),$("#stock").val());
+					
+				}else if($("#aksi").val()=="hapus"){
+				
+					hapus_data($("#kode_barang").val());
+					
+				}else if($("#aksi").val()=="edit"){
+				
+					edit_data($("#kode_barang").val(),$("#nama_barang").val(),$("#kode_produk").val(),$("#satuan").val(),$("#harga_beli").val(),$("#harga_jual").val(),$("#stock").val());
+					
+				}
+				
+			}
 	    });
 		
         });

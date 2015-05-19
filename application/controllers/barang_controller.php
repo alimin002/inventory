@@ -1,4 +1,5 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php 
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 		class barang_controller extends CI_Controller{
 		function __construct(){
 			parent::__construct();
@@ -42,9 +43,29 @@
 		public function cari_barang(){
 			$this->load->model('barang_model');
 			$databarang=$this->barang_model->cari_barang($_POST['param']);
-			
 			echo json_encode($databarang);
-			//echo $_POST['param'];
+		}
+		
+		function hapus_data(){
+			$this->load->model('barang_model');
+			$databarang=$this->barang_model->hapus_data($_POST['kode_barang']);
+			$databarang=$this->barang_model->getbarangall();
+			echo json_encode($databarang);
+		}
+		
+		function edit_data(){
+			$this->load->model('barang_model');
+			$this->barang_model->edit_data(
+			$_POST['kode_barang'],
+			$_POST['nama_barang'],
+			$_POST['kode_produk'],
+			$_POST['satuan'],
+			$_POST['harga_beli'],
+			$_POST['harga_jual'],
+			$_POST['stock']
+			);
+			$databarang=$this->barang_model->getbarangall();
+			echo json_encode($databarang);
 		}
 		
 		
@@ -100,9 +121,6 @@
 		}
 		function view_login()
 		{
-			//$this->load->model('pegawai_model');
-			//$data['judul'] = 'Data Pegawai';
-			//$data['data_pegawai'] = $this->pegawai_model->get_pegawai_all();
 			$this->load->view('login_view');
 		}
 		
@@ -210,5 +228,21 @@ public static function deleteDir($dirPath) {
 	
 	}
 
+	
+	function simpan_data(){
+	//echo $_POST['kode_barang'].$_POST['nama_barang'].$_POST['kode_produk'].$_POST['satuan'].$_POST['harga_beli'].$_POST['kode_barang'].$_POST['harga_jual'].$_POST['stock'];
+	$this->load->model('barang_model');
+	$this->barang_model->simpan_data(
+	$_POST['kode_barang'],
+	$_POST['nama_barang'],
+	$_POST['kode_produk'],
+	$_POST['satuan'],
+	$_POST['harga_beli'],
+	$_POST['harga_jual'],
+	$_POST['stock']
+	);
+	$databarang=$this->barang_model->getbarangall();
+	echo json_encode($databarang);
+	}
 	
 	}

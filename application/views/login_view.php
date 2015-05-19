@@ -306,20 +306,20 @@
 			});
 		});
 		
-	$("#btn_2").hide();
-	$(document).ready(function() {
-        $("#btn_2").click(function(event) {
-			event.preventDefault();
-			ambildatalogin();
-        });
-    });
-	
-	$(document).ready(function() {
-        $("#frmlogin").submit(function(event) {
-			event.preventDefault();
-			login();
-        });
-    });
+		$("#btn_2").hide();
+		$(document).ready(function() {
+			$("#btn_2").click(function(event) {
+				event.preventDefault();
+				ambildatalogin();
+			});
+		});
+		
+		$(document).ready(function() {
+			$("#frmlogin").submit(function(event) {
+				event.preventDefault();
+				login();
+			});
+		});
 	
 			
 	
@@ -362,7 +362,7 @@
 				success: function (data) {
 				if(data !=0)
                     {
-					alert(data);
+					//alert(data);
                       window.location.href="<?php echo base_url().'index.php/base/login'?>"+"/"+username;
 					}
                     else if (data==0)

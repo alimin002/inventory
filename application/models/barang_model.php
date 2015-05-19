@@ -37,15 +37,6 @@ class barang_model extends CI_Model{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	function login($username,$password){
 	 $query=$this->db->query("select * from tblmasterpengguna where namauser='$username' and katakunci='$password'");
         return $query->num_rows();
@@ -71,7 +62,7 @@ class barang_model extends CI_Model{
 		    $query=$this->db->query("SELECT a.kode_barang,b.nama_produk,a.nama_barang,a.satuan,a.harga_beli,a.harga_jual,a.stock FROM barang a
 			left join produk b 
 			on a.kode_produk=b.kode_produk
-			order by id limit 4") ;
+			order by a.id desc limit 4") ;
             return $query->result();
         
         }
@@ -97,5 +88,54 @@ class barang_model extends CI_Model{
 	
 	}
 	
+	function get_product(){
+		try {
+		    $query=$this->db->query("select a.kode_produk,a.nama_produk from produk a") ;
+            return $query->result();
+        
+        }
+        
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }
+	}
+	
+	function simpan_data($kode_barang,$nama_barang,$kode_produk,$satuan,$harga_beli,$harga_jual,$stock){
+	try {
+		$sql = "INSERT INTO barang(kode_barang,nama_barang,kode_produk,satuan,harga_beli,harga_jual,stock)
+        VALUES ('".$kode_barang."','".$nama_barang."','".$kode_produk."','".$satuan."','".$harga_beli."','".$harga_jual."','".$stock."')";
+		$this->db->query($sql);
+		  }
+        
+        catch (Exception $e) {
+            echo $e->getMessage();
+			return $e;
+        }	
+		
+	}
+	
+	function edit_data($kode_barang,$nama_barang,$kode_produk,$satuan,$harga_beli,$harga_jual,$stock){
+	try {
+		$sql = "update barang set nama_barang='".$nama_barang."',kode_produk='".$kode_produk."',satuan='".$satuan."',harga_beli='".$harga_beli."',harga_jual='".$harga_jual."',stock='".$stock."' where kode_barang='".$kode_barang."'";
+		$this->db->query($sql);
+		  }
+        catch (Exception $e){
+            echo $e->getMessage();
+			return $e;
+        }	
+		
+	}
+	
+	function hapus_data($kode_barang){
+		try {
+		$sql = "delete from barang where kode_barang='".$kode_barang."'";
+		$this->db->query($sql);
+		  }
+        
+        catch (Exception $e) {
+            echo $e->getMessage();
+			return $e;
+        }
+	}
 	
 }
