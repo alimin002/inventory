@@ -62,7 +62,7 @@ class barang_model extends CI_Model{
 		    $query=$this->db->query("SELECT a.kode_barang,b.nama_produk,a.nama_barang,a.satuan,a.harga_beli,a.harga_jual,a.stock FROM barang a
 			left join produk b 
 			on a.kode_produk=b.kode_produk
-			order by a.id desc limit 4") ;
+			order by a.id limit 5") ;
             return $query->result();
         
         }
@@ -77,7 +77,7 @@ class barang_model extends CI_Model{
 		try {
 		    $query=$this->db->query("SELECT a.kode_barang,b.nama_produk,a.nama_barang,a.satuan,a.harga_beli,a.harga_jual,a.stock FROM barang a
 			left join produk b 
-			on a.kode_produk=b.kode_produk order by id   limit 4 offset(4 * '$pagestart')") ;
+			on a.kode_produk=b.kode_produk order by id   limit 7 offset(4 * ('$pagestart'))") ;
             return $query->result();
         
         }
@@ -124,6 +124,21 @@ class barang_model extends CI_Model{
 			return $e;
         }	
 		
+	}
+	
+	function buat_kode_barang(){
+	
+		
+		try {
+		    $query=$this->db->query("select kode_barang from barang order by id desc") ;
+            return $query->result();
+        
+        }
+        
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }	
+	
 	}
 	
 	function hapus_data($kode_barang){

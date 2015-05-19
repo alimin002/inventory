@@ -343,7 +343,7 @@
 				}
 			
 			});
-		}
+			}
 		
 			
 		
@@ -367,7 +367,7 @@
 					}
                     else if (data==0)
                     {
-					alert(data);
+					//alert(data);
                     alert('password salah');
                     } 
 				

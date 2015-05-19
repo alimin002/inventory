@@ -17,6 +17,10 @@
 		
 		}
 		
+		function logout(){
+			$this->load->view('login_view');
+		}
+		
 		function login(){
 		$this->load->model('login_model');
 		$logresult=$this->login_model->login($_POST['username'],$_POST['password']);

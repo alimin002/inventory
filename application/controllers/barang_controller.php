@@ -228,6 +228,16 @@ public static function deleteDir($dirPath) {
 	
 	}
 
+	function buat_kode_barang(){
+		$this->load->model('barang_model');
+		$kode_barang=$this->barang_model->buat_kode_barang();
+		$barang_count=$this->barang_model->gettotalrecord();
+		if($barang_count[0]->totalrecord <=0){
+		echo $barang_count[0]->totalrecord;
+		}else{
+		echo $kode_barang[0]->kode_barang; 
+		}
+		}
 	
 	function simpan_data(){
 	//echo $_POST['kode_barang'].$_POST['nama_barang'].$_POST['kode_produk'].$_POST['satuan'].$_POST['harga_beli'].$_POST['kode_barang'].$_POST['harga_jual'].$_POST['stock'];

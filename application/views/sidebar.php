@@ -57,7 +57,7 @@
 
                 <li class="">
                     <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa-desktop"></i>
+                        <i class="menu-icon fa fa-folder-o"></i>
                         <span class="menu-text"> Master </span>
 
                         <b class="arrow fa fa-angle-down"></b>
@@ -95,7 +95,7 @@
 
                 <li class="">
                     <a href="#" class="dropdown-toggle" id="mnu_transaksi" name="mnu_transaksi">
-                        <i class="menu-icon fa fa-list"></i>
+                        <i class="menu-icon fa fa-credit-card"></i>
                         <span class="menu-text"> Transaksi </span>
 
                         <b class="arrow fa fa-angle-down"></b>
@@ -123,6 +123,43 @@
                         <li class="">
                             <a href="#" id="mnu_trans_return" id="mnu_trans_return">
                                 <i class="menu-icon fa fa-caret-right"></i> Return
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+				
+				 <li class="">
+                    <a href="#" class="dropdown-toggle" id="mnu_transaksi" name="mnu_transaksi">
+                        <i class="menu-icon fa fa-puzzle-piece"></i>
+                        <span class="menu-text"> Referensi </span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+                        <li class="">
+                            <a href="#" id="mnu_trans_pembelian" name="mnu_trans_pembelian">
+                                <i class="menu-icon fa fa-caret-right" ></i> Produk
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="">
+                            <a href="#" id="mnu_trans_penjualan" name="mnu_trans_penjualan">
+                                <i class="menu-icon fa fa-caret-right"></i> Group
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="">
+                            <a href="#" id="mnu_trans_return" id="mnu_trans_return">
+                                <i class="menu-icon fa fa-caret-right"></i> Kota
                             </a>
 
                             <b class="arrow"></b>
@@ -635,7 +672,7 @@
 
                 <li class="">
                     <a href="#" id="mnu_grafik_penjualan">
-                        <i class="menu-icon fa fa-list-alt"></i>
+                        <i class="menu-icon fa fa-bar-chart-o"></i>
                         <span class="menu-text"> Grafik Penjualan </span>
                     </a>
 
@@ -644,14 +681,14 @@
 
                 <li class="">
                     <a href="#" id="mnu_trafic_pengunjung">
-                        <i class="menu-icon fa fa-calendar"></i>
+                        <i class="menu-icon fa fa-rss"></i>
 
                         <span class="menu-text">
 								Trafik Pengunjung
 
 								<!-- #section:basics/sidebar.layout.badge -->
 								<span class="badge badge-transparent tooltip-error" title="2 Important Events">
-									<i class="ace-icon fa fa-exclamation-triangle red bigger-130"></i>
+									<i></i>
 								</span>
 
                         <!-- /section:basics/sidebar.layout.badge -->
@@ -663,7 +700,7 @@
 
                 <li class="">
                     <a href="#" id="mnu_pelanggan_online">
-                        <i class="menu-icon fa fa-picture-o"></i>
+                        <i class="menu-icon fa  fa-compress"></i>
                         <span class="menu-text"> Pelanggan Online </span>
                     </a>
 

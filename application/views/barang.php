@@ -45,7 +45,7 @@ if (!defined('BASEPATH'))
                                     
                                 </tbody>
                             </table>
-							<input type="text" id="total_record2"/> <input type="hidden" id="data-pencarian" rows=5 style="visible:0"></input> <input type="text" id="total_record_cari"/>
+							<input type="hidden" id="total_record2"/> <input type="hidden" id="data-pencarian" rows=5 style="visible:0"></input> <input type="hidden" id="total_record_cari"/>
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
@@ -56,6 +56,7 @@ if (!defined('BASEPATH'))
                                     <ul class="pagination" id="paginationbarang">
                                     </ul>
                                 </div>
+								
                             </div>
                         </div>
 						<div class="row">
@@ -123,6 +124,7 @@ if (!defined('BASEPATH'))
                         <!-- /section:custom/extra.hr -->
                         <div class="row">
                             <!-- content 1 is here -->
+							<div id="label-test-output"></div>
                         </div>
                         <!-- /.row -->
 
@@ -320,33 +322,54 @@ if (!defined('BASEPATH'))
 						
 						}
 					    
+						//test buat paging
+								function buat_index_pagging(){
+								var index=0;
+								var control=1;
+									for (i=0; i < $("#total_record2").val(); i ++){
+									if (control > 4){
+									index ++;
+										$("#label-test-output").append("<label style='color:red'>"+index+"</label>");
+										control=1;
+										}else{
+										//$("#label-test-output").append("<label>"+index+"</label>");
+										}
+										
+										control ++;
+									}
+								}
+						
+						//buat_index_pagging();
+						
 						function tampildatabarang(){
 							var targeturl="<?php echo base_url().'index.php/barang_controller/getbarangall'?>";
 							$.ajax({
 							url:targeturl,
 							type: "POST",
 							success: function (data) {
+							
 							var obj = JSON.parse(data);
 							var jumlahrecord=obj.length;
 							for (var i = 0; i < obj.length; i++) {
-    $("#tbody_barang").append("<tr><td></td><td>" + obj[i]['kode_barang'] + "</td>" + "<td>" + obj[i]['nama_produk'] + "</td><td>" + obj[i]['nama_barang'] + "</td><td>" + obj[i]['satuan'] + "</td><td>" + obj[i]['harga_beli'] + "</td><td>" + obj[i]['harga_jual'] + "</td><td>" + obj[i]['stock'] + "</td><td><button style='margin-right:3px;' id='button-edit" + i + "' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-pencil bigger-120'></i></a></button><button id='button-hapus" + i + "' style='margin-right:3px;' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-trash-o bigger-120'></i></a></button><button id='button-foto" + i + "'type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class=' fa fa-camera'></i></a></button></tr>");
+								$("#tbody_barang").append("<tr><td></td><td>" + obj[i]['kode_barang'] + "</td>" + "<td>" + obj[i]['nama_produk'] + "</td><td>" + obj[i]['nama_barang'] + "</td><td>" + obj[i]['satuan'] + "</td><td>" + obj[i]['harga_beli'] + "</td><td>" + obj[i]['harga_jual'] + "</td><td>" + obj[i]['stock'] + "</td><td><button style='margin-right:3px;' id='button-edit" + i + "' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-pencil bigger-120'></i></a></button><button id='button-hapus" + i + "' style='margin-right:3px;' type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class='ace-icon fa fa-trash-o bigger-120'></i></a></button><button id='button-foto" + i + "'type='button' class='btn btn-white btn-pink btn-sm'><a href='#' ><i class=' fa fa-camera'></i></a></button></tr>");
 
-    $("#button-hapus" + i).click(function(event) {
-        event.preventDefault();
-        tampil_modal_hapus(this.id);
-    });
+								$("#button-hapus" + i).click(function(event) {
+									event.preventDefault();
+									tampil_modal_hapus(this.id);
+								});
 
-    $("#button-edit" + i).click(function(event) {
-        event.preventDefault();
-        tampil_modal_edit(this.id);
-    });
+								$("#button-edit" + i).click(function(event) {
+									event.preventDefault();
+									tampil_modal_edit(this.id);
+								});
 
-    $("#button-foto" + i).click(function(event) {
-        event.preventDefault();
-        tampil_screen_upload(this.id);
-    });
-
-}
+								$("#button-foto" + i).click(function(event) {
+									event.preventDefault();
+									tampil_screen_upload(this.id);
+								});
+								
+								
+							}
 							
 							},
 							error: function (jqXHR, textStatus, errorThrown) {
@@ -377,7 +400,7 @@ if (!defined('BASEPATH'))
 						 $("#modal-testing").fadeIn(1000);
 						 $("#judul-modal").text('Edit Data Barang');
 						 $("#kode_barang").val(document.getElementById('tbody_barang').children[id].children[1].textContent);
-						 $("#kode_barang").attr({ "disabled":false});
+						// $("#kode_barang").attr({ "disabled":false});
 						 $("#kode_barang").attr({"readonly":"true"});
 						 $("#nama_barang").val(document.getElementById('tbody_barang').children[id].children[3].textContent);
 						 $("#nama_barang").attr({ "disabled":false});
@@ -423,7 +446,7 @@ if (!defined('BASEPATH'))
 						
 						
 						function get_product(){
-						var targeturl="<?php echo base_url().'index.php/barang_controller/get_product'?>";
+							var targeturl="<?php echo base_url().'index.php/barang_controller/get_product'?>";
 							$.ajax({
 							url:targeturl,
 							type: "POST",
@@ -726,7 +749,28 @@ if (!defined('BASEPATH'))
 			
 			}
 			
-			
+			function buat_kode_barang(){
+							var targeturl="<?php echo base_url().'index.php/barang_controller/buat_kode_barang'?>";
+							$.ajax({
+							url:targeturl,
+							type: "POST",
+							success: function (data) {
+							//alert(data);
+							if(data==0){
+							$("#kode_barang").val("BG-10001");
+							}else{
+							var num_kd_barang=parseInt(data.substring(3))+1;
+							var kode_barang="BG-"+num_kd_barang;
+							$("#kode_barang").val(kode_barang)
+							}
+							},
+							error: function (jqXHR, textStatus, errorThrown) {
+							alert('ajax not succesfull'+ errorThrown);
+								console.log("ERRORS : " + errorThrown);
+							}
+				
+							});
+			}
 			
 			
 			
@@ -767,6 +811,7 @@ if (!defined('BASEPATH'))
 			 $("#judul-modal").text('Tambah Data Barang');
 			 $("#kode_barang").val("");
 			 $("#kode_barang").attr({ "disabled":false});
+			 $("#kode_barang").attr({"readonly":true});
 			 $("#nama_barang").val("");
 			 $("#kode_produk").attr({ "disabled":false});
 			 $("#nama_produk").val("");
@@ -781,8 +826,10 @@ if (!defined('BASEPATH'))
 			 $("#stock").attr({ "disabled":false});
 			 $("#aksi").val('tambah');
 			 $("#btn-ok").attr({ "disabled":false});
-			 
 			 hanya_angka();
+			 
+			 buat_kode_barang();
+			 
 	    });
 		
 		

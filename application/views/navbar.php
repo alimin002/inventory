@@ -315,8 +315,8 @@
                         <li class="divider"></li>
 
                         <li>
-                            <a href="#">
-                                <i class="ace-icon fa fa-power-off"></i> Logout
+                            <a href="#" id="btn-logout" >
+                                <i  class="ace-icon fa fa-power-off"></i> Logout
                             </a>
                         </li>
                     </ul>
@@ -330,3 +330,10 @@
     </div>
     <!-- /.navbar-container -->
 </div>
+<script>
+$("#btn-logout").click(function(event){
+
+event.preventDefault();
+window.location.href='<?php echo base_url().'index.php/logincontroller/logout' ;?> '});
+
+</script>
